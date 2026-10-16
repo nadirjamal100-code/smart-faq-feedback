@@ -1,0 +1,44 @@
+/* Smart FAQ & Feedback — admin styles */
+
+.post-type-sff_faq .column-sff_handle {
+	width: 28px;
+	padding-right: 0;
+}
+
+.post-type-sff_faq .column-sff_likes,
+.post-type-sff_faq .column-sff_dislikes,
+.post-type-sff_faq .column-sff_order {
+	width: 80px;
+}
+
+.sff-drag-handle {
+	color: #646970;
+	cursor: move;
+}
+
+.sff-drag-handle.is-disabled {
+	cursor: default;
+	opacity: 0.35;
+}
+
+.sff-order-notice {
+	margin: 8px 0;
+	color: #1d2327;
+	font-weight: 600;
+}
+
+.sff-order-notice:empty {
+	display: none;
+}
+
+.sff-order-notice.is-error {
+	color: #b32d2e;
+}
+
+.sff-settings .sff-ref {
+	max-width: 760px;
+}
+
+.sff-settings .sff-ref code {
+	background: #f0f0f1;
+}

@@ -1,0 +1,320 @@
+/* Smart FAQ & Feedback — frontend styles. All selectors are prefixed with .sff- */
+
+.sff-faq-list {
+	--sff-text: #1f2937;
+	--sff-muted: #4b5563;
+	--sff-border: #e5e7eb;
+	--sff-control-border: #6b7280;
+	--sff-hover: #f9fafb;
+	--sff-accent: #1d4ed8;
+	--sff-like-bg: #f0fdf4;
+	--sff-like-fg: #166534;
+	--sff-dislike-bg: #fef2f2;
+	--sff-dislike-fg: #991b1b;
+	--sff-radius: 10px;
+
+	box-sizing: border-box;
+	width: 100%;
+	margin: 1.5em 0;
+	color: var(--sff-text);
+	background: #fff;
+	border: 1px solid var(--sff-border);
+	border-radius: var(--sff-radius);
+	font-size: 1rem;
+	line-height: 1.6;
+}
+
+.sff-faq-list *,
+.sff-faq-list *::before,
+.sff-faq-list *::after {
+	box-sizing: border-box;
+}
+
+.sff-item + .sff-item {
+	border-top: 1px solid var(--sff-border);
+}
+
+/* Question heading + button (theme-proofed). */
+.sff-faq-list .sff-question {
+	margin: 0;
+	padding: 0;
+	font-size: inherit;
+	line-height: inherit;
+	text-transform: none;
+	letter-spacing: normal;
+	background: none;
+	border: 0;
+}
+
+.sff-faq-list .sff-trigger {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 16px;
+	width: 100%;
+	min-height: 56px;
+	margin: 0;
+	padding: 16px 20px;
+	color: var(--sff-text);
+	background: #fff;
+	border: 0;
+	border-radius: 0;
+	box-shadow: none;
+	font: inherit;
+	font-size: 1.0625rem;
+	font-weight: 600;
+	line-height: 1.4;
+	letter-spacing: normal;
+	text-align: left;
+	text-transform: none;
+	text-decoration: none;
+	cursor: pointer;
+	-webkit-appearance: none;
+	appearance: none;
+}
+
+.sff-faq-list .sff-item:first-child .sff-trigger {
+	border-radius: var(--sff-radius) var(--sff-radius) 0 0;
+}
+
+.sff-faq-list .sff-item:last-child:not(.is-open) .sff-trigger {
+	border-radius: 0 0 var(--sff-radius) var(--sff-radius);
+}
+
+.sff-faq-list .sff-item:only-child:not(.is-open) .sff-trigger {
+	border-radius: var(--sff-radius);
+}
+
+.sff-faq-list .sff-trigger:hover {
+	color: var(--sff-text);
+	background: var(--sff-hover);
+}
+
+.sff-faq-list .sff-trigger:focus {
+	outline: none;
+}
+
+.sff-faq-list .sff-trigger:focus-visible,
+.sff-faq-list .sff-vote:focus-visible {
+	outline: 3px solid var(--sff-accent);
+	outline-offset: -3px;
+}
+
+.sff-faq-list .sff-vote:focus-visible {
+	outline-offset: 2px;
+}
+
+.sff-q-text {
+	flex: 1 1 auto;
+	min-width: 0;
+	overflow-wrap: anywhere;
+}
+
+/* Chevron drawn with borders (no image / font dependency). */
+.sff-chevron {
+	flex: 0 0 auto;
+	width: 10px;
+	height: 10px;
+	margin-right: 4px;
+	border-right: 2px solid var(--sff-muted);
+	border-bottom: 2px solid var(--sff-muted);
+	transform: translateY(-2px) rotate(45deg);
+	transition: transform 0.2s ease;
+}
+
+.sff-item.is-open .sff-chevron {
+	transform: translateY(2px) rotate(-135deg);
+}
+
+/* Smooth expand / collapse using grid rows (no JS height measuring). */
+.sff-panel {
+	display: grid;
+	grid-template-rows: 0fr;
+	visibility: hidden;
+	transition: grid-template-rows 0.25s ease, visibility 0s linear 0.25s;
+}
+
+.sff-item.is-open > .sff-panel {
+	grid-template-rows: 1fr;
+	visibility: visible;
+	transition: grid-template-rows 0.25s ease, visibility 0s;
+}
+
+.sff-panel-inner {
+	min-height: 0;
+	overflow: hidden;
+}
+
+/* Without JavaScript, show every answer. */
+.sff-faq-list:not(.sff-js) .sff-panel {
+	grid-template-rows: 1fr;
+	visibility: visible;
+}
+
+.sff-answer {
+	padding: 4px 20px 16px;
+	color: var(--sff-text);
+}
+
+.sff-answer > :first-child {
+	margin-top: 0;
+}
+
+.sff-answer > :last-child {
+	margin-bottom: 0;
+}
+
+.sff-answer a {
+	color: var(--sff-accent);
+	text-decoration: underline;
+}
+
+.sff-answer img {
+	max-width: 100%;
+	height: auto;
+}
+
+/* Feedback row. */
+.sff-feedback {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 10px;
+	margin: 0 20px 20px;
+	padding-top: 14px;
+	border-top: 1px dashed var(--sff-border);
+}
+
+.sff-helpful {
+	margin-right: 4px;
+	color: var(--sff-muted);
+	font-size: 0.9375rem;
+}
+
+.sff-faq-list .sff-vote {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	min-width: 64px;
+	min-height: 44px;
+	margin: 0;
+	padding: 8px 14px;
+	color: #374151;
+	background: #fff;
+	border: 1px solid var(--sff-control-border);
+	border-radius: 999px;
+	box-shadow: none;
+	font: inherit;
+	font-size: 0.9375rem;
+	font-weight: 500;
+	line-height: 1;
+	letter-spacing: normal;
+	text-transform: none;
+	cursor: pointer;
+	transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+	-webkit-appearance: none;
+	appearance: none;
+}
+
+.sff-faq-list .sff-vote:hover {
+	color: var(--sff-text);
+	background: var(--sff-hover);
+	border-color: var(--sff-text);
+}
+
+.sff-icon {
+	flex: 0 0 auto;
+	fill: none;
+	stroke: currentColor;
+	stroke-width: 2;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+}
+
+.sff-count {
+	font-variant-numeric: tabular-nums;
+}
+
+/* Selected states. */
+.sff-faq-list .sff-vote.sff-like.is-selected,
+.sff-faq-list .sff-vote.sff-like.is-selected:hover {
+	color: var(--sff-like-fg);
+	background: var(--sff-like-bg);
+	border-color: var(--sff-like-fg);
+	font-weight: 700;
+}
+
+.sff-faq-list .sff-vote.sff-dislike.is-selected,
+.sff-faq-list .sff-vote.sff-dislike.is-selected:hover {
+	color: var(--sff-dislike-fg);
+	background: var(--sff-dislike-bg);
+	border-color: var(--sff-dislike-fg);
+	font-weight: 700;
+}
+
+.sff-vote.is-selected .sff-icon {
+	fill: currentColor;
+}
+
+/* Loading state. */
+.sff-feedback.is-loading .sff-vote {
+	opacity: 0.6;
+	cursor: progress;
+}
+
+.sff-status {
+	flex: 1 1 100%;
+	min-height: 1.4em;
+	color: var(--sff-muted);
+	font-size: 0.875rem;
+}
+
+.sff-status:empty {
+	display: none;
+}
+
+.sff-status.is-error {
+	color: var(--sff-dislike-fg);
+	font-weight: 600;
+}
+
+/* Empty state. */
+.sff-empty {
+	margin: 1.5em 0;
+	padding: 20px;
+	color: var(--sff-muted);
+	background: #fff;
+	border: 1px dashed #d1d5db;
+	border-radius: 10px;
+	text-align: center;
+}
+
+/* Small screens. */
+@media (max-width: 600px) {
+	.sff-faq-list .sff-trigger {
+		padding: 14px 16px;
+		font-size: 1rem;
+	}
+
+	.sff-answer {
+		padding: 2px 16px 14px;
+	}
+
+	.sff-feedback {
+		margin: 0 16px 16px;
+	}
+
+	.sff-helpful {
+		flex: 1 1 100%;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.sff-panel,
+	.sff-item.is-open > .sff-panel,
+	.sff-chevron,
+	.sff-faq-list .sff-vote {
+		transition: none;
+	}
+}
